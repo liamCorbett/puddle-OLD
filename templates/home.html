@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>puddle.ink</title>
-</head>
-<body>
-    <h1>puddle.ink</h1>
-</body>
+
+    <head>
+
+        {% if title %}
+
+            <title>puddle.ink -- {{ title }}</title>
+
+        {% else %}
+
+            <title>puddle.ink</title>
+
+        {% endif %}
+
+    </head>
+
+    <body>
+
+        <h1>puddle.ink</h1>
+
+    </body>
+
 </html>
