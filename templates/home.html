@@ -3,9 +3,14 @@
 {% block content %}
     {% for puddle in puddles %}
 
-        <h2>{{puddle.title}}</h2>
-        <p>by {{puddle.author}} on {{puddle.timestamp}}</p>
-        <p>{{puddle.body}}</p>
+          <div class="listing">
+            <h2><a class="puddle-title" href="#">{{ puddle.title }}</a></h2>
+            <div class="puddle-meta">
+              <a href="#">{{ puddle.author }}</a>
+              <small>{{ puddle.timestamp }}</small>
+            </div>
+            <p class="puddle-body">{{ puddle.body }}</p>
+          </div>
 
     {% endfor %}
 {% endblock content %}
