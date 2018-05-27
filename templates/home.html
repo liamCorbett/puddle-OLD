@@ -1,24 +1,11 @@
-<!DOCTYPE html>
-<html>
+{% extends "bedrock.html" %}
 
-    <head>
+{% block content %}
+    {% for puddle in puddles %}
 
-        {% if title %}
+        <h2>{{puddle.title}}</h2>
+        <p>by {{puddle.author}} on {{puddle.timestamp}}</p>
+        <p>{{puddle.body}}</p>
 
-            <title>puddle.ink -- {{ title }}</title>
-
-        {% else %}
-
-            <title>puddle.ink</title>
-
-        {% endif %}
-
-    </head>
-
-    <body>
-
-        <h1>puddle.ink</h1>
-
-    </body>
-
-</html>
+    {% endfor %}
+{% endblock content %}

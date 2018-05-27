@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        {% if title %}
+
+            <title>{{ title }} -- puddle.ink</title>
+
+        {% else %}
+
+            <title>puddle.ink</title>
+
+        {% endif %}
+
+    </head>
+
+    <body>
+
+        <h1>puddle.ink</h1>
+
+        {% block content %}{% endblock %}
+
+    </body>
+
+</html>
