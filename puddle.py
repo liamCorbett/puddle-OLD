@@ -1,5 +1,9 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegistrationForm, LoginForm
+from incog import SECRET_KEY
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = SECRET_KEY
 
 puddles = [
     {
@@ -16,7 +20,23 @@ puddles = [
     }
 ]
 
-@app.route('/')
 @app.route('/home')
+@app.route('/')
 def home():
     return render_template('home.html', puddles=puddles)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'The tide awaits, {form.username.data} :)', 'success')
+        return redirect(url_for('home'))
+    app.logger.debug(form.errors)
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)

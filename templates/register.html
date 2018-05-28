@@ -1,0 +1,30 @@
+{% extends "bedrock.html" %}
+
+{% block content %}
+    <div>
+        <form method="POST" action="" class="pure-form pure-form-aligned">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>Join the tide!</legend>
+                <div class="pure-control-group">
+                    {{ form.username.label }}
+                    {{ form.username }}
+                </div>
+                <div class="pure-control-group">
+                    {{ form.password.label }} 
+                    {{ form.password }}
+                </div>
+                <div class="pure-control-group">
+                    {{ form.email.label }} 
+                    {{ form.email(placeholder="Optional") }}
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit(class="pure-button pure-button-primary") }}          
+            </div>
+        </form>
+    </div>
+    <div>
+        <small>Already a puddler? <a href="{{ url_for('login') }}">login</a></small>
+    </div>
+{% endblock content %}
