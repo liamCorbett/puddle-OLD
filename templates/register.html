@@ -2,21 +2,42 @@
 
 {% block content %}
     <div>
-        <form method="POST" action="" class="pure-form pure-form-aligned">
+        <form method="POST" action="" class="pure-form pure-form-stacked">
             {{ form.hidden_tag() }}
             <fieldset>
                 <legend>Join the tide!</legend>
                 <div class="pure-control-group">
                     {{ form.username.label }}
-                    {{ form.username }}
+                    {% if form.username.errors %}
+                        {{ form.username }}
+                        {% for error in form.username.errors %}
+                            <span class="pure-form-message">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.username }}
+                    {% endif %}
                 </div>
                 <div class="pure-control-group">
                     {{ form.password.label }} 
-                    {{ form.password }}
+                    {% if form.password.errors %}
+                        {{ form.password }}
+                        {% for error in form.password.errors %}
+                            <span class="pure-form-message">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.password }}
+                    {% endif %}
                 </div>
                 <div class="pure-control-group">
                     {{ form.email.label }} 
-                    {{ form.email(placeholder="Optional") }}
+                    {% if form.email.errors %}
+                        {{ form.email(placeholder="optional") }}
+                        {% for error in form.email.errors %}
+                            <span class="pure-form-message">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.email(placeholder="optional") }}
+                    {% endif %}
                 </div>
             </fieldset>
             <div>

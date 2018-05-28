@@ -2,8 +2,49 @@
 
 {% block content %}
     <div>
-        <form method="POST" action="">
-            
+        <form method="POST" action="" class="pure-form pure-form-stacked">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>Login</legend>
+                <div class="pure-control-group">
+                    {{ form.username.label }}
+                    {% if form.username.errors %}
+                        {{ form.username }}
+                        {% for error in form.username.errors %}
+                            <span class="pure-form-message">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.username }}
+                    {% endif %}
+                </div>
+                <div class="pure-control-group">
+                    {{ form.password.label }} 
+                    {% if form.password.errors %}
+                        {{ form.password }}
+                        {% for error in form.password.errors %}
+                            <span class="pure-form-message">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.password }}
+                    {% endif %}
+                </div>
+                <div class="pure-controls">
+                    <label for="remember" class="pure-checkbox">
+                        {{ form.remember }} Remember me
+                    </label>
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit(class="pure-button pure-button-primary") }}
+            </div>
         </form>
+    </div>
+    <div>
+        <small>Not a puddler yet? <a href="{{ url_for('register') }}">register</a></small>
+    </div>
+    <div>
+        <small>
+            <a href="#">Forgot your password?</a>
+        </small>
     </div>
 {% endblock content %}
