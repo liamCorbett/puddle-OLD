@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm, user_check_dummy
 from incog import SECRET_KEY
 app = Flask(__name__)
