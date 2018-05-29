@@ -21,6 +21,8 @@ puddles = [
     }
 ]
 
+#Flask views
+
 @app.route('/home')
 @app.route('/')
 def home():
