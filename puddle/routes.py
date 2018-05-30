@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from flask_login import current_user, login_user, logout_user
 from puddle import app, bcrypt, db
-from puddle.forms import RegistrationForm, LoginForm, user_check_dummy
+from puddle.forms import RegistrationForm, LoginForm
 from puddle.models import User, Post
 
 posts = []
