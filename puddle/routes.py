@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect
-from puddle import app
+from puddle import app, bcrypt, db
 from puddle.forms import RegistrationForm, LoginForm, user_check_dummy
 from puddle.models import User, Post
 
@@ -15,8 +15,12 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
         flash(f'The tide awaits, {form.username.data} :)', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     app.logger.debug(form.errors)
     return render_template('register.html', title='Register', form=form)
 
