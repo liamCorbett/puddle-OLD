@@ -1,15 +1,15 @@
 {% extends "bedrock.html" %}
 
 {% block content %}
-    {% for puddle in puddles %}
+    {% for post in posts %}
 
           <div class="listing">
-            <h2><a class="puddle-title" href="#">{{ puddle.title }}</a></h2>
+            <h2><a class="puddle-title" href="#">{{ post.title }}</a></h2>
             <div class="puddle-meta">
-              <a href="#">{{ puddle.author }}</a>
-              <small>{{ puddle.timestamp }}</small>
+              <a href="#">{{ post.author }}</a>
+              <small>{{ post.timestamp }}</small>
             </div>
-            <p class="puddle-body">{{ puddle.body }}</p>
+            <p class="puddle-body">{{ post.body }}</p>
           </div>
 
     {% endfor %}
