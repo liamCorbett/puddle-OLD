@@ -1,0 +1,9 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    overflow: auto;
+    transition: transform .2s ease-in-out;
+}

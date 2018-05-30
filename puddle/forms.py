@@ -10,14 +10,12 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[Optional(), Email()])
     submit = SubmitField('Sign up')
 
-    @staticmethod
-    def validate_username(username):
+    def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('That username is taken. Please choose another one.')
 
-    @staticmethod
-    def validate_email(email):
+    def validate_email(self, email):
         email = User.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('That email is taken. Please choose another one.')
@@ -26,5 +24,5 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember = BooleanField()
+    remember = BooleanField('Remember me')
     submit = SubmitField('Login')

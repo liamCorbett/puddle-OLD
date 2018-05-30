@@ -5,44 +5,44 @@
         <form method="POST" action="" class="pure-form pure-form-stacked">
             {{ form.hidden_tag() }}
             <fieldset>
-                <legend>Join the tide!</legend>
-                <div class="pure-control-group">
+                <legend>Join the tide</legend>
+                <div class="field">
                     {{ form.username.label }}
                     {% if form.username.errors %}
                         {{ form.username }}
                         {% for error in form.username.errors %}
-                            <span class="pure-form-message">{{ error }}</span>
+                            <span class="form-message error">{{ error }}</span>
                         {% endfor %}
                     {% else %}
                         {{ form.username }}
                     {% endif %}
                 </div>
-                <div class="pure-control-group">
+                <div class="field">
                     {{ form.password.label }} 
                     {% if form.password.errors %}
                         {{ form.password }}
                         {% for error in form.password.errors %}
-                            <span class="pure-form-message">{{ error }}</span>
+                            <span class="form-message error">{{ error }}</span>
                         {% endfor %}
                     {% else %}
                         {{ form.password }}
                     {% endif %}
                 </div>
-                <div class="pure-control-group">
+                <div class="field">
                     {{ form.email.label }} 
                     {% if form.email.errors %}
                         {{ form.email(placeholder="optional") }}
                         {% for error in form.email.errors %}
-                            <span class="pure-form-message">{{ error }}</span>
+                            <span class="form-message error">{{ error }}</span>
                         {% endfor %}
                     {% else %}
                         {{ form.email(placeholder="optional") }}
                     {% endif %}
                 </div>
+                <div class="field margin-top-s">
+                    {{ form.submit(class="button button-primary") }}
+                </div>
             </fieldset>
-            <div>
-                {{ form.submit(class="pure-button pure-button-primary") }}          
-            </div>
         </form>
     </div>
     <div>
