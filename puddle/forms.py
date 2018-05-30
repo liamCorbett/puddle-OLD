@@ -20,12 +20,9 @@ class RegistrationForm(FlaskForm):
         if email:
             raise ValidationError('That email is taken. Please choose another one.')
 
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField()
     submit = SubmitField('Login')
-
-
-def user_check_dummy(form):
-    return form.username.data == 'liamCorbett' and form.password.data == 'supersecret'

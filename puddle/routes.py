@@ -1,9 +1,11 @@
 from flask import render_template, url_for, flash, redirect
+from flask_login import current_user, login_user, logout_user
 from puddle import app, bcrypt, db
 from puddle.forms import RegistrationForm, LoginForm, user_check_dummy
 from puddle.models import User, Post
 
 posts = []
+
 
 @app.route('/home')
 @app.route('/')
@@ -13,6 +15,8 @@ def home():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -27,13 +31,21 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        if user_check_dummy(form):
-            flash(f'The tide awaits, {form.username.data} :)',
-                  'success')  # Need to also ensure that an actual user has logged in
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
             return redirect(url_for('home'))
         else:
-            flash('Login unsuccessful. Are you sure you used the right username and password?', 'error')
+            flash('Login unsuccessful. Are you sure your username and password are correct? :(', 'error')
     app.logger.debug(form.errors)
     return render_template('login.html', title='Login', form=form)
+
+
+@app.route('/logout', methods=['POST'])
+def login():
+    logout_user()
+    return redirect(url_for('home'))
