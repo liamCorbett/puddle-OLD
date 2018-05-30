@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from puddle.models import User
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, Optional, ValidationError
+from puddle.models import User
 
 
 class RegistrationForm(FlaskForm):
@@ -10,12 +10,14 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[Optional(), Email()])
     submit = SubmitField('Sign up')
 
-    def validate_username(self, username):
+    @staticmethod
+    def validate_username(username):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('That username is taken. Please choose another one.')
 
-    def validate_email(self, email):
+    @staticmethod
+    def validate_email(email):
         email = User.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('That email is taken. Please choose another one.')
