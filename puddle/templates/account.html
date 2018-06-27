@@ -1,5 +1,50 @@
 {% extends "bedrock.html" %}
 {% block content %}
-    <div></div>
-    <h1>{{ current_user.username }}</h1>
+    <div>
+        <img src={{ profile_image }}>
+        <h2>{{ current_user.username }}</h2>
+        <p>{{ current_user.email }}</p>
+    </div>
+    <div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>Update info</legend>
+                <div class="field">
+                    {{ form.profile_image.label }}
+                    {{ form.profile_image }}
+                    {% if form.profile_image.errors %}
+                        {% for error in form.profile_image.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.username.label }}
+                    {% if form.username.errors %}
+                        {{ form.username }}
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.username }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.email.label }}
+                    {% if form.email.errors %}
+                        {{ form.email }}
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.email }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.submit(class="button button-primary") }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
