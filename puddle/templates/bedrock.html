@@ -31,7 +31,11 @@
             </div>
         </main>
         <aside class="sidebar">
+            {% if current_user.is_authenticated %}
 
+            {% else %}
+
+            {% endif %}
         </aside>
     </body>
 

@@ -1,0 +1,37 @@
+{% extends "bedrock.html" %}
+
+{% block content %}
+    <div>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>New Puddle</legend>
+                <div class="field">
+                    {{ form.title.label }}
+                    {% if form.title.errors %}
+                        {{ form.title }}
+                        {% for error in form.title.errors %}
+                            <span class="form-message alert">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.title }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.body.label }}
+                    {% if form.body.errors %}
+                        {{ form.body }}
+                        {% for error in form.body.errors %}
+                            <span class="form-message alert">{{ error }}</span>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.body }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.submit() }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}

@@ -11,15 +11,6 @@
             <fieldset>
                 <legend>Update info</legend>
                 <div class="field">
-                    {{ form.profile_image.label }}
-                    {{ form.profile_image }}
-                    {% if form.profile_image.errors %}
-                        {% for error in form.profile_image.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                <div class="field">
                     {{ form.username.label }}
                     {% if form.username.errors %}
                         {{ form.username }}

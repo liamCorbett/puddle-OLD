@@ -3,7 +3,7 @@ import secrets
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from puddle import app, bcrypt, db
-from puddle.forms import RegistrationForm, LoginForm, UpdateAccountInfoForm
+from puddle.forms import LoginForm, PostForm, RegistrationForm, UpdateAccountInfoForm
 from puddle.models import User, Post
 
 posts = []
@@ -48,29 +48,11 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
-@app.route('/logout')  # , methods=['POST']
-def logout():
-    logout_user()
-    return redirect(url_for('home'))
-
-
-def set_profile_image(form_image):
-    image_hex = secrets.token_hex(8)
-    _, file_ext = os.path.splitext(form_image.filename)
-    image_name = image_hex + file_ext
-    image_path = os.path.join(app.root_path, 'static/profile_images', image_name)
-    form_image.save(image_path)
-    return image_name
-
-
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountInfoForm()
     if form.validate_on_submit():
-        if form.profile_image.data:
-            image_file = set_profile_image(form.profile_image.data)
-            current_user.profile_image = image_file
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
@@ -79,5 +61,21 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    profile_image = url_for('static', filename='profile_images/' + current_user.profile_image)
-    return render_template('account.html', title='Account', profile_image=profile_image, form=form)
+    return render_template('account.html', title='Account', form=form)
+
+
+@app.route("/submit", methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Drip drip, man. Your post has been submitted.', 'success')
+        return redirect(url_for('home'))
+    return render_template('new_post.html', title='New Post', form=form)
+
+
+@app.route('/logout')  # , methods=['POST']
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+

@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Email, Length, Optional, ValidationError, NoneOf
+from wtforms import BooleanField, PasswordField, StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Email, Length, Optional, ValidationError
 from puddle.models import User
 
 
@@ -31,7 +30,6 @@ class LoginForm(FlaskForm):
 
 
 class UpdateAccountInfoForm(FlaskForm):
-    profile_image = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     username = StringField('Username', validators=[Optional(), Length(min=4, max=20)])
     email = StringField('Email', validators=[Optional(), Email()])
     submit = SubmitField('Update')
@@ -47,3 +45,9 @@ class UpdateAccountInfoForm(FlaskForm):
             email = User.query.filter_by(email=email.data).first()
             if email:
                 raise ValidationError('That email is taken. Please choose another one.')
+
+
+class PostForm(FlaskForm):
+    title= StringField('Title', validators=[DataRequired()])
+    body = TextAreaField('Body')
+    submit = SubmitField('Post')
