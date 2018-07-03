@@ -6,8 +6,8 @@
           <div class="listing">
             <h2><a class="puddle-title" href="#">{{ post.title }}</a></h2>
             <div class="puddle-meta">
-              <a href="#">{{ post.author }}</a>
-              <small>{{ post.timestamp }}</small>
+              by <a href="#">{{ post.author.username }}</a>
+              on <small>{{ post.timestamp }}</small>
             </div>
             <p class="puddle-body">{{ post.body }}</p>
           </div>

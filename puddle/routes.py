@@ -6,12 +6,11 @@ from puddle import app, bcrypt, db
 from puddle.forms import LoginForm, PostForm, RegistrationForm, UpdateAccountInfoForm
 from puddle.models import User, Post
 
-posts = []
-
 
 @app.route('/home')
 @app.route('/')
 def home():
+    posts = Post.query.all()
     return render_template('home.html', posts=posts)
 
 
@@ -69,6 +68,9 @@ def account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
+        post = Post(title=form.title.data, body=form.body.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
         flash('Drip drip, man. Your post has been submitted.', 'success')
         return redirect(url_for('home'))
     return render_template('new_post.html', title='New Post', form=form)

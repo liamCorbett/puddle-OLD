@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.profile_image}')"
+        return f"User('{self.username}', '{self.email}')"
 
 
 class Post(db.Model):
@@ -24,7 +24,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.String(255), nullable=False)
-    content = db.Column(db.Text, nullable=False)
+    body = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.timestamp}')"
