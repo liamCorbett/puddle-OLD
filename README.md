@@ -1,3 +1,5 @@
 # puddle.ink
 
-Come back later for details! 
+Deprecated start of puddle.ink
+
+Main project is private until release. 
